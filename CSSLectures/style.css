@@ -1,0 +1,12 @@
+.div1,
+        .div2 {
+            width:500px;
+            border: 3px dashed blue;
+            font: bold 20px/1.2em Arial;
+            float:left;
+            color:#5e5e5e;
+        }
+        .div1{
+            margin:50px; 
+                       
+        }
