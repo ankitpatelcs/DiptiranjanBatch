@@ -13,6 +13,7 @@
             <th>Quantity</th>
             <th>Discount</th>
             <th>Image</th>
+            <th></th>
         </tr>
         {% for item in productlist %}
         <tr>
@@ -21,7 +22,11 @@
             <td>{{item.price}}</td>
             <td>{{item.quantity}}</td>
             <td>{{item.discount}}</td>
-            <td><img src="{{item.pic}}" alt="Image of {{item.name}}" title="Image of {{item.name}}" height="60" width="60"></td>
+            <td><img src="{{item.pic.url}}" alt="Image of {{item.name}}" title="Image of {{item.name}}" height="60" width="60"></td>
+            <td>
+                <a href="{% url 'editproduct' item.id %}">Edit</a> |
+                <a href="{% url 'deleteproduct' item.id %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

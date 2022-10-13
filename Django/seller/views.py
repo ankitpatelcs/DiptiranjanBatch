@@ -35,3 +35,34 @@ def addproduct(request):
 def manageproducts(request):
     plist= Product.objects.all()
     return render(request,'manageproducts.html',{'productlist':plist})
+
+def editproduct(request,pid):
+    prodobj = Product.objects.get(id=pid)
+    if request.method=='POST':
+        if 'pic' in request.FILES:
+            prodobj.name=request.POST['name']
+            prodobj.des=request.POST['des']
+            prodobj.price=request.POST['price']
+            prodobj.discount=request.POST['discount']
+            prodobj.quantity=request.POST['quantity']
+            pic=request.FILES['pic']
+            prodobj.save()
+            return redirect('manageproducts')
+        else:
+            prodobj.name=request.POST['name']
+            prodobj.des=request.POST['des']
+            prodobj.price=request.POST['price']
+            prodobj.discount=request.POST['discount']
+            prodobj.quantity=request.POST['quantity']
+            #pic=request.FILES['pic']
+            prodobj.save()
+            return redirect('manageproducts')
+    return render(request,'editproduct.html',{'pobj':prodobj})
+
+def deleteproduct(request,pid):
+    prodobj = Product.objects.get(id=pid)
+    if request.method=='POST':
+        prodobj.delete()
+        return redirect('manageproducts')
+    return render(request,'deleteproduct.html',{'pobj':prodobj})
+
