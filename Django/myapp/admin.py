@@ -11,3 +11,11 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Cart)
 class UserAdmin(admin.ModelAdmin):
     list_display=['product','quantity','user']
+
+@admin.register(Order)
+class UserAdmin(admin.ModelAdmin):
+    list_display= ['user','order_status']
+
+@admin.register(OrderDetails)
+class UserAdmin(admin.ModelAdmin):
+    list_display= ['product','quantity','order']

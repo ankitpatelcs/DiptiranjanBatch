@@ -1,4 +1,4 @@
-from seller.models import Product
+from seller.models import *
 from django.db import models
 
 # Create your models here.
@@ -12,9 +12,24 @@ class User(models.Model):
         return self.name
 
 class Cart(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE),
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
     quantity=models.IntegerField()
     user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.name
+
+class Order(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    order_status=models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.user.name
+
+class OrderDetails(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity=models.IntegerField()
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name

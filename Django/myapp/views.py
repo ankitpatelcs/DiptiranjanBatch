@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 
-from myapp.models import Cart, User
+from myapp.models import *
 from seller.models import *
-from django.http import *
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -37,8 +37,37 @@ def addtocart(request):
     pobj = Product.objects.get(id=pid)
 
     Cart.objects.create(
-        product=pobj,
-        user=userobj,
-        quantity=1
+        product = pobj,
+        user = userobj,
+        quantity = 1
     )
-    return JsonResponse({'msg':'Product Added to cart.'})
+    return JsonResponse({'msg':'Employee Added'})
+
+def cart(request):
+    userobj = User.objects.get(email=request.session['email'])
+    cartdata=Cart.objects.filter(user=userobj)
+    carttotal=0
+    for item in cartdata:
+        item.product.discountedprice=item.product.price-(item.product.price*item.product.discount/100)
+        carttotal+=item.product.discountedprice
+    return render(request,'cart.html',{'cartitems':cartdata,'carttotal':carttotal})
+
+def checkout(request):
+    userobj = User.objects.get(email=request.session['email'])
+    orderobj = Order.objects.create(
+        user=userobj,
+        order_status='Confirmed'
+    )
+
+    cartdata=Cart.objects.filter(user=userobj)
+    s = 0
+    for i in cartdata:
+        s +=  int(i.product.price)
+    
+    for item in cartdata:
+        OrderDetails.objects.create(
+            product=item.product,
+            quantity=item.quantity,
+            order=orderobj
+        )
+    return render(request,'success.html')
