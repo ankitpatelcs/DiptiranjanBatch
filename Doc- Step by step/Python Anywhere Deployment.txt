@@ -1,0 +1,58 @@
+Step- 1: Goto https://www.pythonanywhere.com/ and create account or login
+Step- 2: select '$ Bash' from Dashboard
+
+Step- 3: Check Directory-
+	 $ pwd
+
+	 Create Virtual Environment-
+	 $ mkvirtualenv env_name --python=/usr/bin/python3.9
+
+Step- 4: Clone your Repository from GitHub (take http url from "Code" button)
+	 Eg : $ git clone {http url of repository}
+	 $ git clone https://github.com/ankittops301/EcomDjangoProject.git
+
+Step- 5: Change directory to project folder
+	 $ cd EcomProject	(project name of Github)
+
+Step- 6: on pythonanywhere goto file req.txt
+	 Files menu -> {Name_Of_Repository_on_Github} -> req.txt
+
+Step- 7: open req.txt to check that django is present or not. If not then add 		 'django' at the end of the list.
+
+Step- 8: execute requirement
+	 $ pip install -r req.txt
+
+Step- 9: Goto Web menu and click on 'Add a new web app'
+
+Step-10: Select 'Manual Configuration' (last option)
+
+Step-11: Select python version
+
+Step-12: Scroll down to 'Code' Section and click on 
+	 'WSGI configuration file: /var/www/ankitpatel_pythonanywhere_com_wsgi.py'. 
+	 
+
+Step-13: Uncomment Django Part.
+	 change path='/home/ankitpatel/mysite' to path='/home/ankitpatel/{Name_Of_Repository_on_Github}'
+
+Step-14: on line 85 'mysite.settings'. (mysite is the name of project in django)
+
+Step-15: Setup The Environment
+	 Goto Virtualenv: of Web menu and enter virtual environment name {name given in bash}
+
+Step-16: Go To Settings.py file
+	 ALLOWED_HOSTS = ["*",]
+
+Step-17: Goto Static files: in Web menu, add 1 entry each for every app url registered in mysite/urls.py -> urlpatterns= [...]
+	 Eg: path('',include('myapp.urls')),
+	 set
+	 URL:'', Directory: '/home/ankitpatel/EcomDjangoProject/myapp'
+
+    	 Eg: path('seller/',include('seller.urls'))
+	 set
+	 URL:'seller/seller-static/', Directory: '/home/ankitpatel/EcomDjangoProject/seller'
+
+Step-18: Reload wepapp on top of the Web menu page.
+	 Reload website in browser
+	 
+

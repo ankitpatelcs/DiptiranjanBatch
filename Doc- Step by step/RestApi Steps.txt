@@ -1,0 +1,55 @@
+Step- 1: create project with normal flow (follow steps)
+
+Step- 2: install rest framework in django
+	 > pip install djangorestframework
+
+Step- 3: goto settings.py -> INSTALLED_APPS -> add 'rest_framework'
+
+Step- 4: Add a new Model in ur app
+
+	class Employee(models.Model):
+    		name = models.CharField(max_length=50)
+		salary=models.IntegerField()
+    		email = models.EmailField()    		
+    		password = models.CharField(max_length=50)
+
+    		def __str__(self):
+        	return self.name
+
+
+Step- 5: Add new file 'serializers.py' and class as below
+
+	from rest_framework import serializers
+	from .models import *
+
+	class Employeeserial(serializers.ModelSerializer):
+
+    	class Meta:
+
+        	model  =  User
+        	fields  = '__all__'
+
+Step- 6: makemigrations
+
+Step- 7: add following in myapp -> urls.py (without name parameter)
+
+	urlpatterns = [
+    		path('getemployees/', views.getemployees)
+	]
+
+Step- 8: add this to views.py
+
+	from rest_framework.decorators import api_view
+	from rest_framework.response import Response
+	from api.models import Employee
+	from api.serializers import EmployeeSerial
+
+	# Create your views here.
+
+	@api_view(['GET'])
+	def getemployees(request):
+    		emplist=Employee.objects.all()
+    		serial = EmployeeSerial(emplist,many=True)
+    		return Response(serial.data)
+
+Step- 9: runserver

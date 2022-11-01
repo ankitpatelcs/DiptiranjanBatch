@@ -1,0 +1,85 @@
+Step 1 : Open Terminal
+
+Step 2 : Create an Environment 
+	>python -m venv myenv
+
+step 3 : Activate Environment 
+	>myenv\Scripts\activate
+
+step 4 : Install Django 
+	>pip install django
+
+step 5 : Create Project 
+	>django-admin startproject mysite .
+
+step 6 : Create Application 
+	>django-admin startapp myapp
+
+step 7 : Database Setup 
+	- Makemigrations 
+		>python manage.py makemigrations
+	- Migrate
+		>python manage.py migrate
+
+step 8 : Check setup. 
+	>python manage.py runserver
+
+## ======>runserver (to test whether myapp is working or not)
+(http://localhost:8000/)
+
+(stop server with ctrl+c)
+
+step 9 : Create Super User(Admin user) 
+	>python manage.py createsuperuser
+		> enter userid (admin)
+		> enter password (admin123)
+		> enter cnf password
+
+step 10 : Register your app in project's settings.py
+	- mysite -> settings.py -> in INSTALLED_APPS property Add new entry 'myapp' at end
+
+## ======>runserver (to test whether myapp is working or not)
+
+-------setps to setup HTML Page------------
+
+step 11 : Create your home url in project(mysite) urls.py file
+	- mysite -> urls.py -> add new path in urlpatterns -> path('',include('myapp.urls'))
+
+step 12 : Create a urls.py file in Application(myapp).
+	- then copy contents from mysite -> urls.py into this file.
+
+step 13 : Create function in views
+	- define new function to call HTML file
+	eg:-	def index(request):
+    			return render(request,'index.html')
+
+step 14 : Create view for url.
+	- call function in urls.py
+	eg:-	from . import views
+		path('',views.index,name='index')
+
+===========Template integrate==============
+
+step 15 : download template
+	- create 'templates' folder in myapp
+	- create 'static' folder in myapp
+	- add 'index.html' file in templates folder
+	- add all static files (css,js,images,fonts folder) into static folder
+
+step 16 : template integration using jinja
+	- {%load static%} - add this on top of all HTML pages
+	- change static file urls as - "{% static 'css/bootstrap.css' %}"
+
+step 17: set urls for HTML hyperlinks as below
+	- "{% url 'about' %}"
+	- this will call urls.py - path('about/',views.about,name='about')
+	- define function to call about file
+	eg:- def about(request):
+    		return render(request,'about.html')
+
+=======Run the app=============
+> python manage.py runserver
+- then open browser and type url - http://localhost:8000/
+
+=====
+

@@ -1,0 +1,62 @@
+Step- 1: Gitbash from the folder whose files we want to deploy and execute the command
+
+Step- 2: Set up - git config --global user.name  Name_of_user
+       		- git config --global user.email email of user
+
+Step- 3: open project in VS code -> got Terminal -> select Git bash from terminal dropdown. then execure following commands
+
+Step- 4: Goto GitHub and create new Repository.
+
+Step- 5: Initialize Git --- $ git init
+
+Step- 6: Adding files to staging area. (we dont have to move all the files to the staging)
+	 to ignore certain files/folders add gitignore file --- $ touch .gitignore
+	 Inside this file add myenv and save it.
+
+Step- 7: Add dependencies to requirement file. 
+	 create a file to add requirements(for all dependencies) --- $ pip freeze > req.txt
+
+Step- 8: Move All Files into Staging Area --- $ git add .
+
+Step- 9: Commit the files with message --- $ git commit -m "Message"
+
+Step-10: to check commit/message logs --- $ git log
+
+Step-11: Check Status of files --- git status
+
+-----------------------------Ready with Offline system-----------------------
+
+----------------------------------GitHub Setup----------------------------
+
+step 1 : Create Reposetry
+
+Step 2 : (once per account)Goto Account settings in Github -> SSH and GPG Keys(from left panel) -> Generate SSH keys from Documentation
+
+Step 3 : Select 'Generate new SSH key' from left panel
+
+Step 4 : Select OS and follow the steps given there.
+
+Step 5 : $ ssh-keygen -t rsa -b 4096 -C "your_email_address@example.com"
+
+Step 6 : just press enter-enter-enter(3) until u see square image. SSH key is generated
+
+Step 7 : To Execute the key --- $ eval "$(ssh-agent -s)"
+
+Step 8 : Add for the PC --- $ ssh-add ~/.ssh/id_rsa    - Identity is added.
+
+Step 9 : To Add the new key, goto the 'Add a new SSH Key' from the left panel
+
+Step 10: Select OS and copy key to clipboard using this command --- $ clip < ~/.ssh/id_rsa.pub
+
+Step 11: Goto Account settings in Github -> SSH and GPG Keys(from left panel) and select "New SSH key" button on top right
+
+Step 12: Enter 'Title' then paste the key in 'Key' textarea and submit. Key is added.
+
+Step 13: Goto the new repository page and 'Select SSH' and copy the URL on ite right.
+
+Step 14: paste on the vs code git bash terminal and execute.
+	 --- Eg: $ git remote add origin git@github.com:ankittops301/EcomDjangoProject.git
+
+Step 15: To push the code to GitHub -- git push origin master
+
+
